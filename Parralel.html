@@ -190,7 +190,7 @@ to 0.2 with an inflection point at x = 0, extinction is constant at rate 0.03, a
 evolution is Brownian motion with diffusion parameter 0.025.</p>
 
 <pre><code class="r"># set knitr options
-opts_chunk$set(message = FALSE, warning = FALSE, cache = TRUE)
+opts_chunk$set(message = FALSE, warning = FALSE)
 </code></pre>
 
 <pre><code class="r">require(diversitree)
@@ -252,6 +252,11 @@ p.start
 ##   0.16108   0.16108   0.57097   1.00000   0.02569   0.03164
 </code></pre>
 
+<pre><code class="r">
+# set lower bound
+lower &lt;- c(0, 0, min(states), -Inf, 0, 0)
+</code></pre>
+
 <p>Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an
 initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.</p>
 
@@ -259,14 +264,8 @@ initial step size of 0.1 (rather than 1), which reduces the number of function e
     lower = lower, verbose = 0))
 </code></pre>
 
-<pre><code>## Error: Corrupt QuaSSE integrator: ptr is NULL (are you using multicore?)
-</code></pre>
-
-<pre><code>## Timing stopped at: 0 0 0.02
-</code></pre>
-
 <p><em>Time of the find.mle function</em>
-Function took r time.f[[3]]&#39; seconds to run</p>
+Function took 585.82 seconds to run</p>
 
 </body>
 

@@ -13,7 +13,7 @@ evolution is Brownian motion with diffusion parameter 0.025.
 
 ```r
 # set knitr options
-opts_chunk$set(message = FALSE, warning = FALSE, cache = TRUE)
+opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
 
@@ -99,6 +99,12 @@ p.start
 ##   0.16108   0.16108   0.57097   1.00000   0.02569   0.03164
 ```
 
+```r
+
+# set lower bound
+lower <- c(0, 0, min(states), -Inf, 0, 0)
+```
+
 
 Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an
 initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.
@@ -109,14 +115,6 @@ time.f <- system.time(fit <- find.mle(lik.nodrift, p.start, control = list(parsc
     lower = lower, verbose = 0))
 ```
 
-```
-## Error: Corrupt QuaSSE integrator: ptr is NULL (are you using multicore?)
-```
-
-```
-## Timing stopped at: 0 0 0.02
-```
-
 
 *Time of the find.mle function*
-Function took `r time.f[[3]]' seconds to run
+Function took 585.82 seconds to run

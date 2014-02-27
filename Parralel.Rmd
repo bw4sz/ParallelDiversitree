@@ -80,7 +80,9 @@ initial step size of 0.1 (rather than 1), which reduces the number of function e
 ```{r}
 time.f<-system.time(fit <- find.mle(lik.nodrift, p.start, control=list(parscale=.1),
 lower=lower, verbose=0))
+time.f
 ```
 
 *Time of the find.mle function*
-Function took `r time.f[[3]]' seconds to run
+
+Function took `r time.f[[3]]` seconds to run
