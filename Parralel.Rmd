@@ -90,7 +90,10 @@ Function took `r time.f[[3]]` seconds to run
 Introduction to ppso - Particle Swarm Optomization
 ====
 
-The package provides a few dummy functions to show it works
+The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)
+
+[http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png]
+
 ```{r}
 require(ppso)
 #simple application (all file I/O disabled)

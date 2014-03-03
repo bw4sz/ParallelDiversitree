@@ -262,10 +262,64 @@ initial step size of 0.1 (rather than 1), which reduces the number of function e
 
 <pre><code class="r">time.f &lt;- system.time(fit &lt;- find.mle(lik.nodrift, p.start, control = list(parscale = 0.1), 
     lower = lower, verbose = 0))
+time.f
 </code></pre>
 
-<p><em>Time of the find.mle function</em>
-Function took 585.82 seconds to run</p>
+<pre><code>##    user  system elapsed 
+##  563.77    0.06  566.10
+</code></pre>
+
+<p><em>Time of the find.mle function</em></p>
+
+<p>Function took 566.1 seconds to run</p>
+
+<h1>Introduction to ppso - Particle Swarm Optomization</h1>
+
+<p>The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)</p>
+
+<p>[<a href="http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png">http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png</a>]</p>
+
+<pre><code class="r">require(ppso)
+# simple application (all file I/O disabled)
+result &lt;- optim_pso(objective_function = rastrigin_function, projectfile = NULL, 
+    logfile = NULL)
+print(result)
+</code></pre>
+
+<pre><code>## $value
+## [1] -1.989
+## 
+## $par
+## [1] -0.006468 -0.021736
+## 
+## $function_calls
+## [1] 200
+## 
+## $break_flag
+## [1] &quot;max iterations reached&quot;
+</code></pre>
+
+<pre><code class="r">
+# actual minimum -2 at (0,0)
+result = optim_dds(objective_function = rastrigin_function, projectfile = NULL, 
+    logfile = NULL)
+print(result)
+</code></pre>
+
+<pre><code>## $value
+## [1] -2
+## 
+## $par
+## [1]  0.001933 -0.000820
+## 
+## $function_calls
+## [1] 500
+## 
+## $break_flag
+## [1] &quot;max number of function calls reached&quot;
+</code></pre>
+
+<p>The arguments</p>
 
 </body>
 

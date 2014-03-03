@@ -26,6 +26,8 @@ char <- make.brownian.with.drift(0, 0.025)
 ```
 
 
+You can also embed plots, for example:
+
 
 ```r
 set.seed(1)
@@ -111,8 +113,71 @@ initial step size of 0.1 (rather than 1), which reduces the number of function e
 ```r
 time.f <- system.time(fit <- find.mle(lik.nodrift, p.start, control = list(parscale = 0.1), 
     lower = lower, verbose = 0))
+time.f
+```
+
+```
+##    user  system elapsed 
+##  563.77    0.06  566.10
 ```
 
 
 *Time of the find.mle function*
-Function took 585.82 seconds to run
+
+Function took 566.1 seconds to run
+
+Introduction to ppso - Particle Swarm Optomization
+====
+
+The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)
+
+[http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png]
+
+
+```r
+require(ppso)
+# simple application (all file I/O disabled)
+result <- optim_pso(objective_function = rastrigin_function, projectfile = NULL, 
+    logfile = NULL)
+print(result)
+```
+
+```
+## $value
+## [1] -1.989
+## 
+## $par
+## [1] -0.006468 -0.021736
+## 
+## $function_calls
+## [1] 200
+## 
+## $break_flag
+## [1] "max iterations reached"
+```
+
+```r
+
+# actual minimum -2 at (0,0)
+result = optim_dds(objective_function = rastrigin_function, projectfile = NULL, 
+    logfile = NULL)
+print(result)
+```
+
+```
+## $value
+## [1] -2
+## 
+## $par
+## [1]  0.001933 -0.000820
+## 
+## $function_calls
+## [1] 500
+## 
+## $break_flag
+## [1] "max number of function calls reached"
+```
+
+
+The arguments
+
