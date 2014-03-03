@@ -121,20 +121,20 @@ time.f
 
 ```
 ##    user  system elapsed 
-##  718.50    0.04  718.56
+##  543.00    0.01  543.93
 ```
 
 
 *Time of the find.mle function*
 
-Function took 718.56 seconds to run
+Function took 9.0655 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
 
 Introduction to ppso - Particle Swarm Optomization
 ====
 
 The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)
 
-![](http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png)
+ <img src="http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png" height="400px" width="300px" />
 
 
 ```r
