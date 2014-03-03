@@ -26,8 +26,6 @@ char <- make.brownian.with.drift(0, 0.025)
 ```
 
 
-You can also embed plots, for example:
-
 
 ```r
 set.seed(1)
