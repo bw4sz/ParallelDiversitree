@@ -32,7 +32,10 @@ You can also embed plots, for example:
 ```r
 set.seed(1)
 phy <- tree.quasse(c(lambda, mu, char), max.taxa = 15, x0 = 0, single.lineage = FALSE)
+plot(phy)
 ```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-31.png) ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-32.png) 
 
 
 We need to specify the standard deviation for the states; here I will just assume that all taxa have a state
@@ -118,20 +121,20 @@ time.f
 
 ```
 ##    user  system elapsed 
-##  563.77    0.06  566.10
+##  718.50    0.04  718.56
 ```
 
 
 *Time of the find.mle function*
 
-Function took 566.1 seconds to run
+Function took 718.56 seconds to run
 
 Introduction to ppso - Particle Swarm Optomization
 ====
 
 The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)
 
-[http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png]
+![](http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png)
 
 
 ```r
