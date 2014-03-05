@@ -23,15 +23,22 @@ require(ppso)
 # simple application (all file I/O disabled)
 result <- optim_pso(objective_function = rastrigin_function, projectfile = NULL, 
     logfile = NULL)
+```
+
+```
+## Warning: Package lhs not installed, lhs_init disabled
+```
+
+```r
 print(result)
 ```
 
 ```
 ## $value
-## [1] -1.988
+## [1] -1.991
 ## 
 ## $par
-## [1] -0.004496  0.023956
+## [1]  0.019235 -0.007651
 ## 
 ## $function_calls
 ## [1] 200
@@ -45,15 +52,22 @@ print(result)
 # actual minimum -2 at (0,0)
 result = optim_dds(objective_function = rastrigin_function, projectfile = NULL, 
     logfile = NULL)
+```
+
+```
+## Warning: Package lhs not installed, lhs_init disabled
+```
+
+```r
 print(result)
 ```
 
 ```
 ## $value
-## [1] -2
+## [1] -1.998
 ## 
 ## $par
-## [1] 0.001772 0.002502
+## [1] -0.008495  0.004030
 ## 
 ## $function_calls
 ## [1] 500
@@ -65,82 +79,3 @@ print(result)
 
 The arguments take in a function that is evaluate at x, and a list of parameters.
 
-Creating own function, let's start simple
-Lets take a look with some data found in ?mle2
-
-
-```r
-x = 0:10
-y = c(26, 17, 13, 12, 20, 5, 9, 8, 5, 4, 8)
-d = data.frame(x, y)
-```
-
-
-Here, were fitting a possion model that depends on an intercept term plus a linear term. The exp() is mainly there to make sure that the value of lambda doesnt go negative, which isnt allowed (it would imply a negative number of occurrences for our outcome of interest).
-
-
-```r
-require(bbmle)
-```
-
-```
-## Loading required package: bbmle
-## Loading required package: stats4
-```
-
-```r
-# using R's native optim function()
-fit0 = mle2(y ~ dpois(lambda = exp(intercept + slope * x)), start = list(intercept = mean(y), 
-    slope = 0), data = d)
-
-# now the same exact code written as a function, how do i do this?
-simpleF <- function(intercept = mean(y), slope = 0) {
-    -sum(dpois(y, lambda = exp(intercept + slope * x)), log = TRUE)
-}
-
-# test
-simpleF()
-```
-
-```
-## [1] -1
-```
-
-```r
-
-fit1 = mle2(simpleF, start = list(intercept = mean(y), slope = 0))
-
-fit1
-```
-
-```
-## 
-## Call:
-## mle2(minuslogl = simpleF, start = list(intercept = mean(y), slope = 0))
-## 
-## Coefficients:
-## intercept     slope 
-##     11.55      0.00 
-## 
-## Log-likelihood: 1
-```
-
-```r
-fit0
-```
-
-```
-## 
-## Call:
-## mle2(minuslogl = y ~ dpois(lambda = exp(intercept + slope * x)), 
-##     start = list(intercept = mean(y), slope = 0), data = d)
-## 
-## Coefficients:
-## intercept     slope 
-##    3.0949   -0.1524 
-## 
-## Log-likelihood: -28.95
-```
-
-
-fit0 and fit1, why do i get diff results?
