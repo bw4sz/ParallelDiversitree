@@ -121,66 +121,10 @@ time.f
 
 ```
 ##    user  system elapsed 
-##  543.00    0.01  543.93
+##  518.63    0.08  520.98
 ```
 
 
 *Time of the find.mle function*
 
-Function took 9.0655 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
-
-Introduction to ppso - Particle Swarm Optomization
-====
-
-The package provides a few dummy functions to show it works - here is the rastrigin function that apparently is commonly used to test optimzation (new to me!)
-
- <img src="http://upload.wikimedia.org/wikipedia/commons/8/8b/Rastrigin_function.png" height="400px" width="300px" />
-
-
-```r
-require(ppso)
-# simple application (all file I/O disabled)
-result <- optim_pso(objective_function = rastrigin_function, projectfile = NULL, 
-    logfile = NULL)
-print(result)
-```
-
-```
-## $value
-## [1] -1.989
-## 
-## $par
-## [1] -0.006468 -0.021736
-## 
-## $function_calls
-## [1] 200
-## 
-## $break_flag
-## [1] "max iterations reached"
-```
-
-```r
-
-# actual minimum -2 at (0,0)
-result = optim_dds(objective_function = rastrigin_function, projectfile = NULL, 
-    logfile = NULL)
-print(result)
-```
-
-```
-## $value
-## [1] -2
-## 
-## $par
-## [1]  0.001933 -0.000820
-## 
-## $function_calls
-## [1] 500
-## 
-## $break_flag
-## [1] "max number of function calls reached"
-```
-
-
-The arguments
-
+Function took 8.683 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
