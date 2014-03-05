@@ -17,21 +17,26 @@ Here, we’re fitting a possion model that depends on an intercept term plus a l
 ```{r}
 require(bbmle)
 #using R's native optim function()
+
 fit0 = mle2(y ~ dpois(lambda= exp(intercept + slope * x)), start = list(intercept = mean(y), slope = 0), data = d)
 
-#now the same exact code written as a function, how do i do this?
-simpleF<-function(intercept=mean(y),slope=0){
-  -sum(dpois(y,lambda = exp(intercept + slope * x)),log=TRUE)
-}
 
-#test
-simpleF()
+simpleF <- function(slope,intercept) {
+  -sum(dpois(y,  lambda=exp(intercept+slope*x), log = TRUE))}
 
-fit1 = mle2(simpleF, start = list(intercept = mean(y), slope = 0))
+fit1 = mle2(simpleF, start = list( intercept= mean(y), slope = 0))
+
+fit0
 
 fit1
-fit0
 ```
 
-Clearly we have a syntax issue. Thoughts?
-===============================
+We want to write a function that looks like simpleF, not as the native mle2 ~ style. 
+
+Questions
+----------
+
+In our analogy, what will our x's and y's be? 
+
+How many parameters will we need to fit?
+

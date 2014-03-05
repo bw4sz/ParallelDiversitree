@@ -197,43 +197,27 @@ d = data.frame(x, y)
 </code></pre>
 
 <pre><code>## Loading required package: bbmle
-## Loading required package: stats4
+</code></pre>
+
+<pre><code>## Warning: package &#39;bbmle&#39; was built under R version 3.0.2
+</code></pre>
+
+<pre><code>## Loading required package: stats4
 </code></pre>
 
 <pre><code class="r"># using R&#39;s native optim function()
+
 fit0 = mle2(y ~ dpois(lambda = exp(intercept + slope * x)), start = list(intercept = mean(y), 
     slope = 0), data = d)
 
-# now the same exact code written as a function, how do i do this?
-simpleF &lt;- function(intercept = mean(y), slope = 0) {
-    -sum(dpois(y, lambda = exp(intercept + slope * x)), log = TRUE)
+
+simpleF &lt;- function(slope, intercept) {
+    -sum(dpois(y, lambda = exp(intercept + slope * x), log = TRUE))
 }
 
-# test
-simpleF()
-</code></pre>
-
-<pre><code>## [1] -1
-</code></pre>
-
-<pre><code class="r">
 fit1 = mle2(simpleF, start = list(intercept = mean(y), slope = 0))
 
-fit1
-</code></pre>
-
-<pre><code>## 
-## Call:
-## mle2(minuslogl = simpleF, start = list(intercept = mean(y), slope = 0))
-## 
-## Coefficients:
-## intercept     slope 
-##     11.55      0.00 
-## 
-## Log-likelihood: 1
-</code></pre>
-
-<pre><code class="r">fit0
+fit0
 </code></pre>
 
 <pre><code>## 
@@ -248,7 +232,28 @@ fit1
 ## Log-likelihood: -28.95
 </code></pre>
 
-<h1>Clearly we have a syntax issue. Thoughts?</h1>
+<pre><code class="r">
+fit1
+</code></pre>
+
+<pre><code>## 
+## Call:
+## mle2(minuslogl = simpleF, start = list(intercept = mean(y), slope = 0))
+## 
+## Coefficients:
+##     slope intercept 
+##   -0.1524    3.0949 
+## 
+## Log-likelihood: -28.95
+</code></pre>
+
+<p>We want to write a function that looks like simpleF, not as the native mle2 ~ style. </p>
+
+<h2>Questions</h2>
+
+<p>In our analogy, what will our x&#39;s and y&#39;s be? </p>
+
+<p>How many parameters will we need to fit?</p>
 
 </body>
 

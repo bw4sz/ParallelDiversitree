@@ -23,47 +23,29 @@ require(bbmle)
 
 ```
 ## Loading required package: bbmle
+```
+
+```
+## Warning: package 'bbmle' was built under R version 3.0.2
+```
+
+```
 ## Loading required package: stats4
 ```
 
 ```r
 # using R's native optim function()
+
 fit0 = mle2(y ~ dpois(lambda = exp(intercept + slope * x)), start = list(intercept = mean(y), 
     slope = 0), data = d)
 
-# now the same exact code written as a function, how do i do this?
-simpleF <- function(intercept = mean(y), slope = 0) {
-    -sum(dpois(y, lambda = exp(intercept + slope * x)), log = TRUE)
+
+simpleF <- function(slope, intercept) {
+    -sum(dpois(y, lambda = exp(intercept + slope * x), log = TRUE))
 }
-
-# test
-simpleF()
-```
-
-```
-## [1] -1
-```
-
-```r
 
 fit1 = mle2(simpleF, start = list(intercept = mean(y), slope = 0))
 
-fit1
-```
-
-```
-## 
-## Call:
-## mle2(minuslogl = simpleF, start = list(intercept = mean(y), slope = 0))
-## 
-## Coefficients:
-## intercept     slope 
-##     11.55      0.00 
-## 
-## Log-likelihood: 1
-```
-
-```r
 fit0
 ```
 
@@ -80,6 +62,30 @@ fit0
 ## Log-likelihood: -28.95
 ```
 
+```r
 
-Clearly we have a syntax issue. Thoughts?
-===============================
+fit1
+```
+
+```
+## 
+## Call:
+## mle2(minuslogl = simpleF, start = list(intercept = mean(y), slope = 0))
+## 
+## Coefficients:
+##     slope intercept 
+##   -0.1524    3.0949 
+## 
+## Log-likelihood: -28.95
+```
+
+
+We want to write a function that looks like simpleF, not as the native mle2 ~ style. 
+
+Questions
+----------
+
+In our analogy, what will our x's and y's be? 
+
+How many parameters will we need to fit?
+
