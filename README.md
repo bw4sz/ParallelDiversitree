@@ -3,7 +3,7 @@ ParallelDiversitree
 
 Approaches to fitting QuaSSe models using some of the parallel R approaches. 
 
-_See parallel.md for example of the problem._
+_See ExampleQuasse.md for example of the problem._
 
 _See Liklihood Syntax for how to write likelihood functions in R._
 
