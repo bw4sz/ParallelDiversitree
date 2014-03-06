@@ -31,11 +31,11 @@ You can also embed plots, for example:
 
 ```r
 set.seed(1)
-phy <- tree.quasse(c(lambda, mu, char), max.taxa = 15, x0 = 0, single.lineage = FALSE)
+phy <- tree.quasse(c(lambda, mu, char), max.taxa = 7, x0 = 0, single.lineage = FALSE)
 plot(phy)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-31.png) ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-32.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 
 We need to specify the standard deviation for the states; here I will just assume that all taxa have a state
@@ -71,7 +71,7 @@ p
 
 ```
 ##    lambda        mu diffusion 
-##   0.16108   0.02569   0.03164
+##   0.12873   0.00000   0.01982
 ```
 
 
@@ -99,7 +99,7 @@ p.start
 
 ```
 ##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
-##   0.16108   0.16108   0.57097   1.00000   0.02569   0.03164
+##   0.12873   0.12873   0.39892   1.00000   0.00000   0.01982
 ```
 
 ```r
@@ -120,11 +120,222 @@ time.f
 ```
 
 ```
-##    user  system elapsed 
-##  518.63    0.08  520.98
+##     user   system  elapsed 
+##   752.82     0.06 34352.97
+```
+
+```r
+fit
+```
+
+```
+## $par
+##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 1.826e-02 
+## 
+## $lnLik
+## [1] -26.27
+## 
+## $counts
+## [1] 1152
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+## 
+## $hessian
+## NULL
+## 
+## $method
+## [1] "subplex"
+## 
+## $par.full
+##      l.y0      l.y1    l.xmid       l.r       m.c     drift diffusion 
+## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 0.000e+00 1.826e-02 
+## 
+## $func.class
+## [1] "constrained" "quasse"      "dtlik"       "function"   
+## 
+## attr(,"func")
+## QuaSSE likelihood function:
+##   * Parameter vector takes 6 elements:
+##      - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+##   * Function constrained (original took 7 elements):
+##      - drift ~ 0
+##   * Function takes arguments (with defaults)
+##      - pars: Parameter vector
+##      - ...: Additional arguments to underlying function
+##      - pars.only [FALSE]: Return full parameter vector?
+##   * Phylogeny with 7 tips and 6 nodes
+##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Reference:
+##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
+## R definition:
+## function (pars, ..., pars.only = FALSE)  
+## attr(,"class")
+## [1] "fit.mle.quasse" "fit.mle"
 ```
 
 
 *Time of the find.mle function*
 
-Function took 8.683 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
+Function took 572.5495 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
+
+Extracting the likelihood function from Quasse
+-----------
+
+Let's look at the function call make.quasse
+
+
+```r
+lik.nodrift
+```
+
+```
+## QuaSSE likelihood function:
+##   * Parameter vector takes 6 elements:
+##      - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+##   * Function constrained (original took 7 elements):
+##      - drift ~ 0
+##   * Function takes arguments (with defaults)
+##      - pars: Parameter vector
+##      - ...: Additional arguments to underlying function
+##      - pars.only [FALSE]: Return full parameter vector?
+##   * Phylogeny with 7 tips and 6 nodes
+##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Reference:
+##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
+## R definition:
+## function (pars, ..., pars.only = FALSE)
+```
+
+
+The likelihood function is in there, we need to prize it out!
+
+What does the structure of the function look like?
+
+
+```r
+str(lik.nodrift)
+```
+
+```
+## function (pars, ..., pars.only = FALSE)  
+##  - attr(*, "class")= chr [1:4] "constrained" "quasse" "dtlik" "function"
+##  - attr(*, "argnames")= chr [1:6] "l.y0" "l.y1" "l.xmid" "l.r" ...
+##  - attr(*, "formulae")=List of 1
+##   ..$ :Class 'formula' length 3 drift ~ 0
+##   .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
+##  - attr(*, "func")=function (pars, condition.surv = TRUE, root = ROOT.OBS, root.f = NULL, 
+##     intermediates = FALSE)  
+##   ..- attr(*, "class")= chr [1:3] "quasse" "dtlik" "function"
+```
+
+```r
+lik.nodrift
+```
+
+```
+## QuaSSE likelihood function:
+##   * Parameter vector takes 6 elements:
+##      - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+##   * Function constrained (original took 7 elements):
+##      - drift ~ 0
+##   * Function takes arguments (with defaults)
+##      - pars: Parameter vector
+##      - ...: Additional arguments to underlying function
+##      - pars.only [FALSE]: Return full parameter vector?
+##   * Phylogeny with 7 tips and 6 nodes
+##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Reference:
+##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
+## R definition:
+## function (pars, ..., pars.only = FALSE)
+```
+
+```r
+
+# provide pars
+pars <- c(0.1, 0.2, 0, 2.5, 0.03, 0.01)
+
+lik.nodrift(pars)
+```
+
+```
+## [1] -28.93
+```
+
+```r
+
+# what are these paramters!! in what order??
+```
+
+
+calling lik.nodrift
+   - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+  * Function constrained (original took 7 elements):
+     - drift ~ 0
+     
+This would appear to be the the -log liklihood for this tree. We need to find the actually function inside!
+
+Let's try calling a debug (not seen within R markdown)
+
+I see the call
+
+lik(pars)
+debugging in: lik(pars)
+debug: {
+    pars2 <- f.pars(pars)
+    ans <- all.branches(pars2, intermediates)
+    rootfunc(ans, pars2, condition.surv, root, root.f, intermediates)
+}
+
+I don't see any documentation on the functions rootfunc or pars.
+
+Where to go from here
+======
+
+1. We can email Rich and ask him to report where the function is actually being held. It has to exist.
+
+2. We can remake the function from the going back to the original paper (antonin?)
+
+3. We can try to code just a new function type, within the find.mle framework, and just ignore where the actual function call is (this seems kinda crazy, but possible, see below)
+
+Treating Quasse as a black box
+==============================
+
+
+```r
+
+# reformat lower bound into the correct syntax
+lower <- c(0, 0, 0, 0, 0, 0)
+
+# is there an upper bound?
+upper <- c(1, 1, 1, 1, 1, 1)
+bounds <- cbind(lower, upper)
+
+require(ppso)
+
+result <- optim_pso(objective_function = lik.nodrift, number_of_parameter = 6, 
+    parameter_bounds = bounds, initial_estimates = p.start, projectfile = NULL, 
+    logfile = NULL, do_plot = "base", tryCall = TRUE)
+
+result
+```
+
+$value
+[1] -63.49
+
+$par
+[1] 1.0000 1.0000 0.3175 0.5946 0.0000 1.0000
+
+$function_calls
+[1] 200
+
+$break_flag
+[1] "max iterations reached"
+
+
+This fails with the bounds! What are the upper bounds? just 1, i'm confused here but thats progressed.

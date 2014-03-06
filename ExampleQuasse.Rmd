@@ -26,7 +26,7 @@ You can also embed plots, for example:
 
 ```{r fig.width=7, fig.height=6}
 set.seed(1)
-phy <- tree.quasse(c(lambda, mu, char), max.taxa=15, x0=0,
+phy <- tree.quasse(c(lambda, mu, char), max.taxa=7, x0=0,
 single.lineage=FALSE)
 plot(phy)
 ```
@@ -82,8 +82,86 @@ initial step size of 0.1 (rather than 1), which reduces the number of function e
 time.f<-system.time(fit <- find.mle(lik.nodrift, p.start, control=list(parscale=.1),
 lower=lower, verbose=0))
 time.f
+fit
 ```
 
 *Time of the find.mle function*
 
 Function took `r time.f[[3]]/60` minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
+
+Extracting the likelihood function from Quasse
+-----------
+
+Let's look at the function call make.quasse
+
+```{r}
+lik.nodrift
+```
+
+The likelihood function is in there, we need to prize it out!
+
+What does the structure of the function look like?
+
+```{r}
+str(lik.nodrift)
+lik.nodrift
+
+#provide pars
+pars <- c(.1, .2, 0, 2.5, .03, .01)
+
+lik.nodrift(pars)
+
+#what are these paramters!! in what order??
+
+```
+
+calling lik.nodrift
+   - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+  * Function constrained (original took 7 elements):
+     - drift ~ 0
+     
+This would appear to be the the -log liklihood for this tree. We need to find the actually function inside!
+
+Let's try calling a debug (not seen within R markdown)
+
+I see the call
+
+lik(pars)
+debugging in: lik(pars)
+debug: {
+    pars2 <- f.pars(pars)
+    ans <- all.branches(pars2, intermediates)
+    rootfunc(ans, pars2, condition.surv, root, root.f, intermediates)
+}
+
+I don't see any documentation on the functions rootfunc or pars.
+
+Where to go from here
+======
+
+1. We can email Rich and ask him to report where the function is actually being held. It has to exist.
+
+2. We can remake the function from the going back to the original paper (antonin?)
+
+3. We can try to code just a new function type, within the find.mle framework, and just ignore where the actual function call is (this seems kinda crazy, but possible, see below)
+
+Treating Quasse as a black box
+==============================
+
+```{r,results='asis'}
+
+#reformat lower bound into the correct syntax
+lower <- c(0, 0,0, 0, 0, 0)
+
+#is there an upper bound?
+upper<-c(1,1,1,1,1,1)
+bounds<-cbind(lower,upper)
+
+require(ppso)
+
+result <- optim_pso(objective_function=lik.nodrift,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile=NULL, do_plot="base",tryCall=TRUE)
+
+result
+```
+
+This fails with the bounds! What are the upper bounds? just 1, i'm confused here but thats progressed.
