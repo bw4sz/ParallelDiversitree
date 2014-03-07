@@ -26,7 +26,7 @@ You can also embed plots, for example:
 
 ```{r fig.width=7, fig.height=6}
 set.seed(1)
-phy <- tree.quasse(c(lambda, mu, char), max.taxa=7, x0=0,
+phy <- tree.quasse(c(lambda, mu, char), max.taxa=15, x0=0,
 single.lineage=FALSE)
 plot(phy)
 ```
@@ -75,8 +75,7 @@ p.start
 lower <- c(0, 0, min(states), -Inf, 0, 0)
 ```
 
-Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an
-initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.
+Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.
 
 ```{r}
 time.f<-system.time(fit <- find.mle(lik.nodrift, p.start, control=list(parscale=.1),
@@ -156,12 +155,16 @@ lower <- c(0, 0,0, 0, 0, 0)
 #is there an upper bound?
 upper<-c(1,1,1,1,1,1)
 bounds<-cbind(lower,upper)
+rownames(bounds)<-c("l.y0", "l.y1", "l.xmid", "l.r", "m.c", "diffusion")
 
 require(ppso)
 
-result <- optim_pso(objective_function=lik.nodrift,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile=NULL, do_plot="base",tryCall=TRUE)
+result <- optim_pso(objective_function=lik.nodrift,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile="pso.log",tryCall=TRUE,max_number_of_iterations=20,verbose=0)
 
+
+
+fit
 result
 ```
 
-This fails with the bounds! What are the upper bounds? just 1, i'm confused here but thats progressed.
+This fails with the bounds! What are the upper bounds? It fails if i place Inf
