@@ -150,21 +150,38 @@ Treating Quasse as a black box
 ```{r,results='asis'}
 
 #reformat lower bound into the correct syntax
-lower <- c(0, 0,0, 0, 0, 0)
+#lower <- c(0,1e-10,0,0,0,0)
 
 #is there an upper bound?
-upper<-c(1,1,1,1,1,1)
-bounds<-cbind(lower,upper)
-rownames(bounds)<-c("l.y0", "l.y1", "l.xmid", "l.r", "m.c", "diffusion")
+#upper<-rep(1e10,6)
+
+#bounds<-cbind(lower,upper)
+bounds<-cbind(rep(1e-10, number_of_parameters),
+  rep(1, number_of_parameters))
+
+#rownames(bounds)<-c("l.y0", "l.y1", "l.xmid", "l.r", "m.c", "diffusion")
 
 require(ppso)
 
-result <- optim_pso(objective_function=lik.nodrift,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile="pso.log",tryCall=TRUE,max_number_of_iterations=20,verbose=0)
-
-
+  lik2<-function(x){
+    abs(lik.nodrift(x))
+  }
+  
+result <- optim_pso(objective_function=lik2,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile="pso.log",tryCall=TRUE,verbose=TRUE)
 
 fit
 result
 ```
 
 This fails with the bounds! What are the upper bounds? It fails if i place Inf
+
+let's look at the log file
+
+```{r}
+log<-read.table(file='pso.log',sep="\t",header=TRUE)
+head(log)
+
+log$time<-as.POSIXct(as.character(log$time))
+
+require(ggplot2)
+ggplot(log,aes(time,objective_function)) + geom_path() + geom_point() + scale_x_datetime()
