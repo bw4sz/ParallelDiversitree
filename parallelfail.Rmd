@@ -1,0 +1,45 @@
+Diagnosing the paralell ability of the current quasse function
+========================================================
+
+
+```{r}
+require(diversitree)
+lambda <- function(x) sigmoid.x(x, 0.1, 0.2, 0, 2.5)
+mu <- function(x) constant.x(x, 0.03)
+char <- make.brownian.with.drift(0, 0.025)
+```
+
+
+```{r fig.width=7, fig.height=6}
+set.seed(1)
+phy <- tree.quasse(c(lambda, mu, char), max.taxa=15, x0=0,
+single.lineage=FALSE)
+plot(phy)
+```
+
+
+```{r}
+states <- phy$tip.state
+states.sd <- 1/200
+lik <- make.quasse(phy, states, states.sd, sigmoid.x, constant.x)
+lik.nodrift <- constrain(lik, drift ~ 0)
+argnames(lik.nodrift)
+```
+
+
+```{r,results='asis'}
+#provide pars
+pars <- c(.1, .2, 0, 2.5, .03, .01)
+
+lik.nodrift(pars)
+
+require(foreach)
+require(doSNOW)
+
+cl<-makeCluster(2,"SOCK")
+registerDoSNOW(cl)
+foreach(i=1:5) %dopar%{
+  lik.nodrift(pars)
+}
+```
+
