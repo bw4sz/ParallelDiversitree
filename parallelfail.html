@@ -181,6 +181,8 @@ hljs.initHighlightingOnLoad();
 <body>
 <h1>Diagnosing the paralell ability of the current quasse function</h1>
 
+<p>Load package and seed some random parameters.</p>
+
 <pre><code class="r">require(diversitree)
 </code></pre>
 
@@ -196,12 +198,16 @@ mu &lt;- function(x) constant.x(x, 0.03)
 char &lt;- make.brownian.with.drift(0, 0.025)
 </code></pre>
 
+<p>Create a phylogeny</p>
+
 <pre><code class="r">set.seed(1)
 phy &lt;- tree.quasse(c(lambda, mu, char), max.taxa = 15, x0 = 0, single.lineage = FALSE)
 plot(phy)
 </code></pre>
 
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAGwCAMAAABy/YdMAAAAdVBMVEX9/v0AAAAAADkAAGUAOY8AZmUAZrU5AAA5ADk5AGU5OY85j485j7U5j9plAABlADllAGVlOTllOY9lZgBlZo9ltf2POQCPOTmPOWWPZgCPZo+P2/21ZgC1/v3ajzna/rXa/v39tWX924/927X9/rX9/tr9/v2dPu+5AAAAJ3RSTlP//////////////////////////////////////////////////wCDVpfZAAAACXBIWXMAAAsSAAALEgHS3X78AAAK8UlEQVR4nO3dC1PbVhCG4ahJIU0LTS+hl4CLXfD//4m1ZHERPibo7PFqt9/7zLQk05E41lsug5ajd1tIerf0ArAMwosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMLnsznvui/WkxA+nbufvw7/2BA+g7vL/mN8/dNV9+F2e/f5Zrv54cZ4SsJncH3Rp77+7mv/p+2q6/sbEd5FZ7Pudr3v/9h9el+fbVcfbu+vLqwrIryLznqC3Uf73a+3ffiH/kaEd2ELvzrb/XOx+XTbf9Lvv8Tv/mZdEeFd2MKv39/sivf/Xg1/2m4+Wr+pJ7wP46f66647217/eNntuvff4n9n7k54H+av8bvv7a7MP7R5jvAuGoQfvra3Q3gXDcI3RngXhBdFeFGEF0V4UYQXRfg6xptbASx9BQ8kCb/0Aqwav4D7v2+fvalCeBdtX8D91dmzN3UI78L4AiajV/3fLraPbyoR3oX17tzz0av7q4vrL9uHN7UI7+LpBVR9azgZvdr96c/hfs34pg7hXXSFP83yNHq1+8swi/P4pg7hXdjCT0avto8Td6bBO8K7sIWfjl7t/ifYf21fWSYzCO/C+Kl+Mnq1/2L/+KYS4V2Yv8aLjl4RXnT0ivDNEd4F4etEuVrVCF8nytWqFu8GLeGdRXkphHcW5aUQ3lmUl0J4Z1FeCuGdRXkphHfW5KUMw3b3V5Zf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" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<p>Create a no drift model</p>
 
 <pre><code class="r">states &lt;- phy$tip.state
 states.sd &lt;- 1/200
@@ -213,13 +219,18 @@ argnames(lik.nodrift)
 <pre><code>## [1] &quot;l.y0&quot;      &quot;l.y1&quot;      &quot;l.xmid&quot;    &quot;l.r&quot;       &quot;m.c&quot;       &quot;diffusion&quot;
 </code></pre>
 
+<p>Evaluate the function once</p>
+
 <pre><code class="r"># provide pars
 pars &lt;- c(0.1, 0.2, 0, 2.5, 0.03, 0.01)
 
 lik.nodrift(pars)
 </code></pre>
 
-<p>[1] -62.04</p>
+<pre><code>## [1] -62.04
+</code></pre>
+
+<p>Can we call the function in parallel? Not even optim(), just call the exact same function in multiple instances of R. </p>
 
 <pre><code class="r">
 require(foreach)
@@ -247,6 +258,8 @@ foreach(i = 1:5) %dopar% {
 <pre><code>## Error: task 1 failed - &quot;Corrupt QuaSSE integrator: ptr is NULL (are you
 ## using multicore?)&quot;
 </code></pre>
+
+<p>I&#39;ve never seen a function with this behavior before. </p>
 
 </body>
 

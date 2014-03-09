@@ -1,7 +1,7 @@
 Diagnosing the paralell ability of the current quasse function
 ========================================================
 
-
+Load package and seed some random parameters.
 ```{r}
 require(diversitree)
 lambda <- function(x) sigmoid.x(x, 0.1, 0.2, 0, 2.5)
@@ -9,6 +9,7 @@ mu <- function(x) constant.x(x, 0.03)
 char <- make.brownian.with.drift(0, 0.025)
 ```
 
+Create a phylogeny
 
 ```{r fig.width=7, fig.height=6}
 set.seed(1)
@@ -17,6 +18,7 @@ single.lineage=FALSE)
 plot(phy)
 ```
 
+Create a no drift model
 
 ```{r}
 states <- phy$tip.state
@@ -26,12 +28,17 @@ lik.nodrift <- constrain(lik, drift ~ 0)
 argnames(lik.nodrift)
 ```
 
-
-```{r,results='asis'}
+Evaluate the function once
+```{r}
 #provide pars
 pars <- c(.1, .2, 0, 2.5, .03, .01)
 
 lik.nodrift(pars)
+```
+
+Can we call the function in parallel? Not even optim(), just call the exact same function in multiple instances of R. 
+
+```{r,results='asis'}
 
 require(foreach)
 require(doSNOW)
@@ -43,3 +50,4 @@ foreach(i=1:5) %dopar%{
 }
 ```
 
+I've never seen a function with this behavior before. 

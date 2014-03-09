@@ -1,7 +1,7 @@
 Diagnosing the paralell ability of the current quasse function
 ========================================================
 
-
+Load package and seed some random parameters.
 
 ```r
 require(diversitree)
@@ -22,6 +22,7 @@ char <- make.brownian.with.drift(0, 0.025)
 ```
 
 
+Create a phylogeny
 
 
 ```r
@@ -33,6 +34,7 @@ plot(phy)
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
 
+Create a no drift model
 
 
 ```r
@@ -48,7 +50,7 @@ argnames(lik.nodrift)
 ```
 
 
-
+Evaluate the function once
 
 ```r
 # provide pars
@@ -57,7 +59,13 @@ pars <- c(0.1, 0.2, 0, 2.5, 0.03, 0.01)
 lik.nodrift(pars)
 ```
 
-[1] -62.04
+```
+## [1] -62.04
+```
+
+
+Can we call the function in parallel? Not even optim(), just call the exact same function in multiple instances of R. 
+
 
 ```r
 
@@ -93,3 +101,4 @@ foreach(i = 1:5) %dopar% {
 ```
 
 
+I've never seen a function with this behavior before. 
