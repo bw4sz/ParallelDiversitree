@@ -1,0 +1,42 @@
+DEoptim Methods
+========================================================
+
+he R implementation of Differential Evolution (DE), DEoptim, was first published on the Comprehensive R Archive Network (CRAN) in 2005 by David Ardia. Early versions were written in pure R. Since version 2.0-0 (published to CRAN in 2009) the package has relied on an interface to a C implementation of DE, which is significantly faster on most problems as compared to the implementation in pure R. The C interface is in many respects similar to the MS Visual C++ v5.0 implementation of the Differential Evolution algorithm distributed with the book Differential Evolution -- A Practical Approach to Global Optimization by Price, K.V., Storn, R.M., Lampinen J.A, Springer-Verlag, 2006, and found on-line at http://www.icsi.berkeley.edu/~storn/. Since version 2.0-3 the C implementation dynamically allocates the memory required to store the population, removing limitations on the number of members in the population and length of the parameter vectors that may be optimized. 
+
+```{r}
+require(DEoptim)
+Genrose <- function(x) {
+## One generalization of the Rosenbrock banana valley function (n parameters)
+n <- length(x)
+
+## make it take some time ...
+Sys.sleep(.001)
+1.0 + sum (100 * (x[-n]^2 - x[-1])^2 + (x[-1] - 1)^2)
+}
+
+# get some run-time on simple problems
+maxIt <- 250
+n <- 5
+
+oneCore <- system.time( DEoptim(fn=Genrose, lower=rep(-25, n), upper=rep(25, n),control=list(NP=10*n, itermax=maxIt)))
+
+#using parallel package
+withParallel <- system.time( DEoptim(fn=Genrose, lower=rep(-25, n), upper=rep(25, n),control=list(NP=10*n, itermax=maxIt, parallelType=1)))
+
+require(iterators)
+
+#using foreach
+require(doSNOW)
+cl<-makeCluster(8,"SOCK")
+registerDoSNOW(cl)
+
+withParallelforeach <- system.time( DEoptim(fn=Genrose, lower=rep(-25, n), upper=rep(25, n),control=list(NP=10*n, itermax=maxIt, parallelType=2)))
+stopCluster(cl)
+
+#compare speeds
+spe<-list(oneCore,withParallel,withParallelforeach)
+names(spe)<-c("oneCore","withParallel","withParallelforeach")
+spe
+```
+
+

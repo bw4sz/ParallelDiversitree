@@ -202,11 +202,11 @@ char &lt;- make.brownian.with.drift(0, 0.025)
 <p>You can also embed plots, for example:</p>
 
 <pre><code class="r">set.seed(1)
-phy &lt;- tree.quasse(c(lambda, mu, char), max.taxa = 7, x0 = 0, single.lineage = FALSE)
+phy &lt;- tree.quasse(c(lambda, mu, char), max.taxa = 15, x0 = 0, single.lineage = FALSE)
 plot(phy)
 </code></pre>
 
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAGwCAMAAABy/YdMAAAAbFBMVEX9/v0AAAAAADkAAGUAOY8AZmUAZrU5AAA5ADk5AGU5OY85j485j7U5j9plAABlADllAGVlOTllOY9ltf2POQCPOTmPOWWPZgCPZo+P2/21ZgC1/v3ajzna/rXa/v39tWX924/9/rX9/tr9/v2fTSn4AAAAJHRSTlP//////////////////////////////////////////////wBYLA0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAII0lEQVR4nO3dC3PbRBRA4boNfYHTQs0jjqkd+///RyyFmWgzpiPuStpdnfPNlKEzVLe7B8cFyvWbi5DelP4JqAzDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMM37HD3PfxjDd+u42Yb/8GGb8fT/Wbz7XL8ZbfpX+mnz39+iz/M8O3Yby+nT4/7tw/dn127//3lIf6wVYbfrFP/pf38+7X28f3l6evj6XP8LX6l4Uv/BOZyfbU//fa9C9/1v+aPM3wzDtfOh23/Mt9vj/3XgIzyhm/G8d1jV/z6x8P1279f9MMM34599xLf/3y/6bt37/IZDzN8W867jH+EGzJ8W/Je5gOGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQzfrP3GJcavIMLv32dtQjJ8O5Lt1adPeeuvDN+OZHv14af7TcbnFBh+jvELbK8+7949nne+x6dKh5/tyYPt1d2Gy5z11YZvZnyyvbp/4R98xafWGT7dXn39Rf3po59QkVpn+HR79Xm3eeva8ldWGr7j9uofWXF4t1f/yIrDT8bwqxs/juFXN34cw69u/DiLh5/r32cmlj7UqyOWHT/O8uFXMqPe8eMYfnXjxzH86saPY/jVjR/H8KsbP47hVzd+HMOvbvw4hl/d+HEMv7rx4xh+dePHMfzqxo9j+NiEiv9TwTiGn36C4W8xfB0MP/0Ew99i+DoYfvoJhr/F8HUw/PQTDH+L4etg+OknGP4Ww9fB8NNPMPwthq+D4aefYPhbDF8Hw08/wfC3GL4Ohp9+guFvMXwdDD/9hGXCHzabnL1Xhp9+wiLh+w2HGQw//YS5xifbq59+/dDvu4sy/PQT5hqfbK8+Pm+3DDP89BPmWvAy3F7dD+r32gYZvtIJN71sr+6/a/jFZ5QIn2yv7j+g4uCX+qVnlAifbK/udtoec7YYG77SCTck26uvv8Rva3u14bO0u73a8Fna3V5t+DoYvtIJczN8pRPmZvhKJ8zN8JVOmJvhK50wN8NXOmFuhq90wtwMX+mEuRm+0glzM3ylE+Zm+EonzM3wlU6Ym+ErnTA3w1c6YW6Gr3TC3NYZfn4LnGJeqww/v/ZPYfiQ9k9h+JD2T2H4kPZPYfiQ9k9h+JD2T2H4kPZPYfiQ9k9h+JD2T2H4kPZPYfiQ9k9h+JD2T2H4kPZPYfiQ9k9h+JD2T2H4kPZPYfiQ9k9h+JD2T2H4kApOcfrQbbYNM3xI+VM8fXnov0UZPqTIKdLt1V8fL/16yyDDh5RZcDjcXt19UMFdfJWt4WPyTxH4Ld3J9urD3ffzbhufb/iQCcJHftDL9urh9vIQw4eUCJ9sr+43XB58xS+tRPhke3X/hv/R7dVLK/Kl3u3V5RV6j69zezXlfzfsFAtf4/bqcUcx/FRPyGP4EMMPGH7ZJ+QxfIjhBwy/7BPyGD7E8AOGX/YJeQwfYvgBwy/7hDyGDzH8gOGXfUIew4cYfsDwyz4hj+FDDD9g+GWfkMfwIYYfQIXPV/gEhi+k9D0YvpDS92D4Qkrfg+ELKX0Phi+k9D0YvpDS92D4Qkrfg+ELKX0Phi+k9D0YvpDS92D4Qkrfg+ELKX0Phi+k9D0YvpDS92D4Qkrfg+ELKX0Phi+k9D0YvpDS92D4Qkrfg+ELyb2HY/8b9+IrsAxfyBT3cMjYYmz4QgL3kKwtvzpWsr3a8P9H4B7SteVZH1Ng+GICvxM/WVv+vNQ4zvAteVlbnvuCN3w7krXlecvqL4ZvSLq2PHebseHbka4tz9xmbPi2VLm2fMK/Sv/BteXKY3gow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGb5d57/cZUt03uWsODR8O9Lt1dfvbTMeZvh2JNurz7vtPmfl3fLhFfVqe/X5j5yVd4uHV4bh9upLv844zPDNeLW9OnN9teGbkW6vvv5NkLXV1vDtSLZXP7/Zxxm+Le1ur1aWdrdXqw6GhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThW3XcPG+/CjJ8o04fHy6Hu/huS8O3I9le3e25zFmBZfh2JNurO7W84jWvV9ur+x2nYROG1+yS7dX7jNe74RuSbq/O+2ASwzck2V593uV8LsnF8C0Zbq8+fbi+6b/N2F9t+LbUuL1aC6hxe7VaYngow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaH+gf1jgdrQk+spgAAAABJRU5ErkJggg==" alt="plot of chunk unnamed-chunk-3"/> </p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAGwCAMAAABy/YdMAAAAA1BMVEX///+nxBvIAAAACXBIWXMAAAsSAAALEgHS3X78AAAA6klEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4NFRdAAGLcW1NAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-3"/> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAGwCAMAAABy/YdMAAAAdVBMVEX9/v0AAAAAADkAAGUAOY8AZmUAZrU5AAA5ADk5AGU5OY85j485j7U5j9plAABlADllAGVlOTllOY9lZgBlZo9ltf2POQCPOTmPOWWPZgCPZo+P2/21ZgC1/v3ajzna/rXa/v39tWX924/927X9/rX9/tr9/v2dPu+5AAAAJ3RSTlP//////////////////////////////////////////////////wCDVpfZAAAACXBIWXMAAAsSAAALEgHS3X78AAAK8UlEQVR4nO3dC1PbVhCG4ahJIU0LTS+hl4CLXfD//4m1ZHERPibo7PFqt9/7zLQk05E41lsug5ajd1tIerf0ArAMwosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMKLIrwowosivCjCiyK8KMLnsznvui/WkxA+nbufvw7/2BA+g7vL/mN8/dNV9+F2e/f5Zrv54cZ4SsJncH3Rp77+7mv/p+2q6/sbEd5FZ7Pudr3v/9h9el+fbVcfbu+vLqwrIryLznqC3Uf73a+3ffiH/kaEd2ELvzrb/XOx+XTbf9Lvv8Tv/mZdEeFd2MKv39/sivf/Xg1/2m4+Wr+pJ7wP46f66647217/eNntuvff4n9n7k54H+av8bvv7a7MP7R5jvAuGoQfvra3Q3gXDcI3RngXhBdFeFGEF0V4UYQXRfg6xptbASx9BQ8kCb/0Aqwav4D7v2+fvalCeBdtX8D91dmzN3UI78L4AiajV/3fLraPbyoR3oX17tzz0av7q4vrL9uHN7UI7+LpBVR9azgZvdr96c/hfs34pg7hXXSFP83yNHq1+8swi/P4pg7hXdjCT0avto8Td6bBO8K7sIWfjl7t/ifYf21fWSYzCO/C+Kl+Mnq1/2L/+KYS4V2Yv8aLjl4RXnT0ivDNEd4F4etEuVrVCF8nytWqFu8GLeGdRXkphHcW5aUQ3lmUl0J4Z1FeCuGdRXkphHfW5KUMw3b3V5Zf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" alt="plot of chunk unnamed-chunk-3"/> </p>
 
 <p>We need to specify the standard deviation for the states; here I will just assume that all taxa have a state
 standard deviation of 1=200</p>
@@ -232,7 +232,7 @@ p
 </code></pre>
 
 <pre><code>##    lambda        mu diffusion 
-##   0.12873   0.00000   0.01982
+##   0.16108   0.02569   0.03164
 </code></pre>
 
 <p>Lets ignore drift: the argument list we need is:</p>
@@ -252,7 +252,7 @@ p.start
 </code></pre>
 
 <pre><code>##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
-##   0.12873   0.12873   0.39892   1.00000   0.00000   0.01982
+##   0.16108   0.16108   0.57097   1.00000   0.02569   0.03164
 </code></pre>
 
 <pre><code class="r">
@@ -260,16 +260,15 @@ p.start
 lower &lt;- c(0, 0, min(states), -Inf, 0, 0)
 </code></pre>
 
-<p>Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an
-initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.</p>
+<p>Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.</p>
 
 <pre><code class="r">time.f &lt;- system.time(fit &lt;- find.mle(lik.nodrift, p.start, control = list(parscale = 0.1), 
     lower = lower, verbose = 0))
 time.f
 </code></pre>
 
-<pre><code>##     user   system  elapsed 
-##   752.82     0.06 34352.97
+<pre><code>##    user  system elapsed 
+##   572.0     0.0   564.2
 </code></pre>
 
 <pre><code class="r">fit
@@ -277,13 +276,13 @@ time.f
 
 <pre><code>## $par
 ##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
-## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 1.826e-02 
+## 1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 2.894e-02 
 ## 
 ## $lnLik
-## [1] -26.27
+## [1] -51.75
 ## 
 ## $counts
-## [1] 1152
+## [1] 953
 ## 
 ## $convergence
 ## [1] 0
@@ -299,7 +298,7 @@ time.f
 ## 
 ## $par.full
 ##      l.y0      l.y1    l.xmid       l.r       m.c     drift diffusion 
-## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 0.000e+00 1.826e-02 
+## 1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 0.000e+00 2.894e-02 
 ## 
 ## $func.class
 ## [1] &quot;constrained&quot; &quot;quasse&quot;      &quot;dtlik&quot;       &quot;function&quot;   
@@ -314,8 +313,8 @@ time.f
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -326,7 +325,7 @@ time.f
 
 <p><em>Time of the find.mle function</em></p>
 
-<p>Function took 572.5495 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. </p>
+<p>Function took 9.4033 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. </p>
 
 <h2>Extracting the likelihood function from Quasse</h2>
 
@@ -344,8 +343,8 @@ time.f
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -382,8 +381,8 @@ time.f
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -397,7 +396,7 @@ pars &lt;- c(0.1, 0.2, 0, 2.5, 0.03, 0.01)
 lik.nodrift(pars)
 </code></pre>
 
-<pre><code>## [1] -28.93
+<pre><code>## [1] -62.04
 </code></pre>
 
 <pre><code class="r">
@@ -451,29 +450,102 @@ lower &lt;- c(0, 0, 0, 0, 0, 0)
 # is there an upper bound?
 upper &lt;- c(1, 1, 1, 1, 1, 1)
 bounds &lt;- cbind(lower, upper)
+rownames(bounds) &lt;- c(&quot;l.y0&quot;, &quot;l.y1&quot;, &quot;l.xmid&quot;, &quot;l.r&quot;, &quot;m.c&quot;, &quot;diffusion&quot;)
 
 require(ppso)
 
 result &lt;- optim_pso(objective_function = lik.nodrift, number_of_parameter = 6, 
     parameter_bounds = bounds, initial_estimates = p.start, projectfile = NULL, 
-    logfile = NULL, do_plot = &quot;base&quot;, tryCall = TRUE)
+    logfile = &quot;pso.log&quot;, tryCall = TRUE, max_number_of_iterations = 20, verbose = 0)
 
-result
+
+
+fit
+</code></pre>
+
+<p>$par
+     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 2.894e-02 </p>
+
+<p>$lnLik
+[1] -51.75</p>
+
+<p>$counts
+[1] 953</p>
+
+<p>$convergence
+[1] 0</p>
+
+<p>$message
+NULL</p>
+
+<p>$hessian
+NULL</p>
+
+<p>$method
+[1] &ldquo;subplex&rdquo;</p>
+
+<p>$par.full
+     l.y0      l.y1    l.xmid       l.r       m.c     drift diffusion 
+1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 0.000e+00 2.894e-02 </p>
+
+<p>$func.class
+[1] &ldquo;constrained&rdquo; &ldquo;quasse&rdquo;      &ldquo;dtlik&rdquo;       &ldquo;function&rdquo;   </p>
+
+<p>attr(,&ldquo;func&rdquo;)
+QuaSSE likelihood function:</p>
+
+<ul>
+<li>Parameter vector takes 6 elements:
+
+<ul>
+<li>l.y0, l.y1, l.xmid, l.r, m.c, diffusion</li>
+</ul></li>
+<li>Function constrained (original took 7 elements):
+
+<ul>
+<li>drift ~ 0</li>
+</ul></li>
+<li>Function takes arguments (with defaults)
+
+<ul>
+<li>pars: Parameter vector</li>
+<li>&hellip;: Additional arguments to underlying function</li>
+<li>pars.only [FALSE]: Return full parameter vector?</li>
+</ul></li>
+<li>Phylogeny with 15 tips and 14 nodes
+
+<ul>
+<li>Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, &hellip;</li>
+</ul></li>
+<li>Reference:
+
+<ul>
+<li>FitzJohn (2010) doi:10.1093/sysbio/syq053
+R definition:
+function (pars, &hellip;, pars.only = FALSE)<br/>
+attr(,&ldquo;class&rdquo;)
+[1] &ldquo;fit.mle.quasse&rdquo; &ldquo;fit.mle&rdquo;<br/></li>
+</ul></li>
+</ul>
+
+<pre><code class="r">result
 </code></pre>
 
 <p>$value
-[1] -63.49</p>
+[1] -123.2</p>
 
 <p>$par
-[1] 1.0000 1.0000 0.3175 0.5946 0.0000 1.0000</p>
+     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+   1.0000    1.0000    0.0000    0.4535    0.0000    1.0000 </p>
 
 <p>$function_calls
-[1] 200</p>
+[1] 800</p>
 
 <p>$break_flag
 [1] &ldquo;max iterations reached&rdquo;</p>
 
-<p>This fails with the bounds! What are the upper bounds? just 1, i&#39;m confused here but thats progressed.</p>
+<p>This fails with the bounds! What are the upper bounds? It fails if i place Inf</p>
 
 </body>
 

@@ -33,10 +33,43 @@ fit1
 
 We want to write a function that looks like simpleF, not as the native mle2 ~ style. 
 
-Questions
-----------
 
-In our analogy, what will our x's and y's be? 
+Particle Swarm
+=====
+```{r}
 
-How many parameters will we need to fit?
+#Change inputs into a parameter vecotor. Also, optim_pso, minimizes the function, so change to - to positive. 
+
+simpleF2 <- function(pars) {
+  sum(dpois(y,  lambda=exp(pars[2]+pars[1]*x), log = TRUE))}
+
+#check function outputs they should be the same. 
+simpleF(slope=-0.15,intercept=3)
+
+#as one parameter string. 
+simpleF2(c(-0.15,3))
+
+#bounds<-cbind(lower,upper)
+bounds<-cbind(c(-100,-1),
+  c(100, 1))
+
+rownames(bounds)<-c("slope","intercept")
+colnames(bounds)<-c("lower","upper")
+
+#name everything
+
+init<-as.matrix(c(0,mean(y)))
+rownames(init)<-c("slope","intercept")
+
+result <- optim_pso(objective_function=simpleF2,number_of_parameter=2, initial_estimates=init, projectfile=NULL, parameter_bounds=bounds,logfile=NULL,tryCall=TRUE,max_number_of_iterations=200)
+
+log<-read.table(file='pso.log',sep="\t",header=TRUE)
+head(log)
+
+log$time<-as.POSIXct(as.character(log$time))
+
+require(ggplot2)
+ggplot(log,aes(time,objective_function)) + geom_path() + geom_point() + scale_x_datetime()
+
+
 

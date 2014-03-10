@@ -31,11 +31,11 @@ You can also embed plots, for example:
 
 ```r
 set.seed(1)
-phy <- tree.quasse(c(lambda, mu, char), max.taxa = 7, x0 = 0, single.lineage = FALSE)
+phy <- tree.quasse(c(lambda, mu, char), max.taxa = 15, x0 = 0, single.lineage = FALSE)
 plot(phy)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-31.png) ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-32.png) 
 
 
 We need to specify the standard deviation for the states; here I will just assume that all taxa have a state
@@ -71,7 +71,7 @@ p
 
 ```
 ##    lambda        mu diffusion 
-##   0.12873   0.00000   0.01982
+##   0.16108   0.02569   0.03164
 ```
 
 
@@ -99,7 +99,7 @@ p.start
 
 ```
 ##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
-##   0.12873   0.12873   0.39892   1.00000   0.00000   0.01982
+##   0.16108   0.16108   0.57097   1.00000   0.02569   0.03164
 ```
 
 ```r
@@ -109,8 +109,7 @@ lower <- c(0, 0, min(states), -Inf, 0, 0)
 ```
 
 
-Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an
-initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.
+Then run find.mle, as usual. The control argument here just tells the subplex algorithm to use an initial step size of 0.1 (rather than 1), which reduces the number of function evaluations somewhat.
 
 
 ```r
@@ -120,8 +119,8 @@ time.f
 ```
 
 ```
-##     user   system  elapsed 
-##   752.82     0.06 34352.97
+##    user  system elapsed 
+##   572.0     0.0   564.2
 ```
 
 ```r
@@ -131,13 +130,13 @@ fit
 ```
 ## $par
 ##      l.y0      l.y1    l.xmid       l.r       m.c diffusion 
-## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 1.826e-02 
+## 1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 2.894e-02 
 ## 
 ## $lnLik
-## [1] -26.27
+## [1] -51.75
 ## 
 ## $counts
-## [1] 1152
+## [1] 953
 ## 
 ## $convergence
 ## [1] 0
@@ -153,7 +152,7 @@ fit
 ## 
 ## $par.full
 ##      l.y0      l.y1    l.xmid       l.r       m.c     drift diffusion 
-## 2.734e-07 1.997e-01 1.359e-01 5.542e+04 2.314e-06 0.000e+00 1.826e-02 
+## 1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 0.000e+00 2.894e-02 
 ## 
 ## $func.class
 ## [1] "constrained" "quasse"      "dtlik"       "function"   
@@ -168,8 +167,8 @@ fit
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -181,7 +180,7 @@ fit
 
 *Time of the find.mle function*
 
-Function took 572.5495 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
+Function took 9.4033 minutes to run. Given that the desired use case involves phylogenies of many hundreds of taxa, this is far too long. 
 
 Extracting the likelihood function from Quasse
 -----------
@@ -203,8 +202,8 @@ lik.nodrift
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -247,8 +246,8 @@ lik.nodrift
 ##      - pars: Parameter vector
 ##      - ...: Additional arguments to underlying function
 ##      - pars.only [FALSE]: Return full parameter vector?
-##   * Phylogeny with 7 tips and 6 nodes
-##      - Taxa: sp1, sp2, sp4, sp5, sp6, sp7, sp8
+##   * Phylogeny with 15 tips and 14 nodes
+##      - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
 ##   * Reference:
 ##      - FitzJohn (2010) doi:10.1093/sysbio/syq053
 ## R definition:
@@ -264,7 +263,7 @@ lik.nodrift(pars)
 ```
 
 ```
-## [1] -28.93
+## [1] -62.04
 ```
 
 ```r
@@ -315,27 +314,83 @@ lower <- c(0, 0, 0, 0, 0, 0)
 # is there an upper bound?
 upper <- c(1, 1, 1, 1, 1, 1)
 bounds <- cbind(lower, upper)
+rownames(bounds) <- c("l.y0", "l.y1", "l.xmid", "l.r", "m.c", "diffusion")
 
 require(ppso)
 
 result <- optim_pso(objective_function = lik.nodrift, number_of_parameter = 6, 
     parameter_bounds = bounds, initial_estimates = p.start, projectfile = NULL, 
-    logfile = NULL, do_plot = "base", tryCall = TRUE)
+    logfile = "pso.log", tryCall = TRUE, max_number_of_iterations = 20, verbose = 0)
 
+
+
+fit
+```
+
+$par
+     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 2.894e-02 
+
+$lnLik
+[1] -51.75
+
+$counts
+[1] 953
+
+$convergence
+[1] 0
+
+$message
+NULL
+
+$hessian
+NULL
+
+$method
+[1] "subplex"
+
+$par.full
+     l.y0      l.y1    l.xmid       l.r       m.c     drift diffusion 
+1.993e-05 2.229e-01 2.583e-01 3.349e+04 4.502e-06 0.000e+00 2.894e-02 
+
+$func.class
+[1] "constrained" "quasse"      "dtlik"       "function"   
+
+attr(,"func")
+QuaSSE likelihood function:
+  * Parameter vector takes 6 elements:
+     - l.y0, l.y1, l.xmid, l.r, m.c, diffusion
+  * Function constrained (original took 7 elements):
+     - drift ~ 0
+  * Function takes arguments (with defaults)
+     - pars: Parameter vector
+     - ...: Additional arguments to underlying function
+     - pars.only [FALSE]: Return full parameter vector?
+  * Phylogeny with 15 tips and 14 nodes
+     - Taxa: sp1, sp2, sp5, sp6, sp7, sp8, sp9, sp10, sp11, ...
+  * Reference:
+     - FitzJohn (2010) doi:10.1093/sysbio/syq053
+R definition:
+function (pars, ..., pars.only = FALSE)  
+attr(,"class")
+[1] "fit.mle.quasse" "fit.mle"       
+
+```r
 result
 ```
 
 $value
-[1] -63.49
+[1] -123.2
 
 $par
-[1] 1.0000 1.0000 0.3175 0.5946 0.0000 1.0000
+     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+   1.0000    1.0000    0.0000    0.4535    0.0000    1.0000 
 
 $function_calls
-[1] 200
+[1] 800
 
 $break_flag
 [1] "max iterations reached"
 
 
-This fails with the bounds! What are the upper bounds? just 1, i'm confused here but thats progressed.
+This fails with the bounds! What are the upper bounds? It fails if i place Inf

@@ -156,18 +156,18 @@ Treating Quasse as a black box
 #upper<-rep(1e10,6)
 
 #bounds<-cbind(lower,upper)
-bounds<-cbind(rep(1e-10, number_of_parameters),
-  rep(1, number_of_parameters))
+bounds<-cbind(rep(0, 6),
+  rep(.9999999, 6))
 
 #rownames(bounds)<-c("l.y0", "l.y1", "l.xmid", "l.r", "m.c", "diffusion")
 
 require(ppso)
 
   lik2<-function(x){
-    abs(lik.nodrift(x))
+    -(lik.nodrift(x))
   }
   
-result <- optim_pso(objective_function=lik2,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile="pso.log",tryCall=TRUE,verbose=TRUE)
+result <- optim_pso(objective_function=lik2,number_of_parameter=6,parameter_bounds=bounds,initial_estimates=p.start,projectfile=NULL, logfile="pso.log",tryCall=TRUE,verbose=TRUE,max_number_of_iterations=20)
 
 fit
 result
@@ -185,3 +185,27 @@ log$time<-as.POSIXct(as.character(log$time))
 
 require(ggplot2)
 ggplot(log,aes(time,objective_function)) + geom_path() + geom_point() + scale_x_datetime()
+```
+
+That failed, let's try DeOptim optimzation package
+
+```{r}
+require(DEoptim)
+require(iterators)
+require(foreach)
+
+#without parallel
+
+
+#using parallel package
+cl<-makeCluster(4,"SOCK")
+registerDoSNOW(cl)
+
+clusterExport(cl,list="lik.nodrift")
+
+initialpop<-matrix(nrow=60,ncol=6,data=p.start,byrow=TRUE)
+
+withParallel <- system.time(DEoptim(fn=lik2, lower=rep(0, 6), upper=rep(1,6 ),control=list(NP=10*6, itermax=200, parallelType=2)))
+```
+
+
